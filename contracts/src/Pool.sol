@@ -7,21 +7,17 @@ import {ISP1Verifier} from "@sp1-contracts/ISP1Verifier.sol";
 contract Pool {
     struct WithdrawalData {
         bytes32 nullifier;
-        uint256 blockNumber;
         bytes32 blockHash;
         bytes32 exclusionSetRoot;
         uint256 relayerFee;
         address recipient;
         address relayer;
+        address contractAddress;
+        uint64 blockNumber;
     }
 
     event Withdrawal(
-        bytes32 indexed nullifier,
-        uint256 blockNumber,
-        bytes32 blockHash,
-        bytes32 exclusionSetRoot,
-        address recipient,
-        address relayer
+        bytes32 indexed nullifier, bytes32 exclusionSetRoot, address recipient, address relayer, uint256 relayerFee
     );
 
     address public immutable verifier;
@@ -46,15 +42,15 @@ contract Pool {
         WithdrawalData memory withdrawal = abi.decode(_publicValues, (WithdrawalData));
         require(!nullifiers[withdrawal.nullifier], "Already withdrawn");
         require(blockhash(withdrawal.blockNumber) == withdrawal.blockHash, "Invalid block hash");
+        require(withdrawal.contractAddress == address(this), "Invalid contract address");
         nullifiers[withdrawal.nullifier] = true;
 
         emit Withdrawal(
             withdrawal.nullifier,
-            withdrawal.blockNumber,
-            withdrawal.blockHash,
             withdrawal.exclusionSetRoot,
             withdrawal.recipient,
-            withdrawal.relayer
+            withdrawal.relayer,
+            withdrawal.relayerFee
         );
 
         (bool success,) = withdrawal.recipient.call{value: amount - withdrawal.relayerFee}("");
