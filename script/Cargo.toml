@@ -1,0 +1,32 @@
+[package]
+version = "0.1.0"
+name = "pool-script"
+edition = "2021"
+default-run = "pool"
+
+[[bin]]
+name = "pool"
+path = "src/bin/main.rs"
+
+[[bin]]
+name = "vkey"
+path = "src/bin/vkey.rs"
+
+[dependencies]
+sp1-sdk = "4.0.0"
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
+clap = { version = "4.0", features = ["derive", "env"] }
+tracing = "0.1.40"
+hex = "0.4.3"
+alloy = { workspace = true, features = ["contract", "providers", "reqwest"] }
+pool-lib = { path = "../lib" }
+dotenv = "0.15.0"
+rand = "0.9.0"
+tokio = "1.43.0"
+eyre = "0.6.12"
+bincode = "1.3.3"
+serde.workspace = true
+serde_cbor = "0.11.2"
+
+[build-dependencies]
+sp1-build = "4.0.0"

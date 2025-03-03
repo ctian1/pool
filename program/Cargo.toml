@@ -1,0 +1,11 @@
+[package]
+version = "0.1.0"
+name = "pool-program"
+edition = "2021"
+
+[dependencies]
+alloy = { workspace = true }
+sp1-zkvm = "4.0.0"
+pool-lib = { path = "../lib" }
+serde_cbor = "0.11.2"
+

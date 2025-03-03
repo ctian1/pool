@@ -1,0 +1,25 @@
+[workspace]
+members = [
+    "lib",
+    "program",
+    "script",
+]
+resolver = "2"
+
+[workspace.dependencies]
+alloy = { version = "0.11.1", default-features = false }
+serde = { version = "1.0.200", default-features = false, features = ["derive"] }
+
+[profile.dev]
+opt-level = 1
+
+# Enable a large amount of optimization in the dev profile for dependencies.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.dev.build-override]
+opt-level = 3
+
+[patch.crates-io]
+sha3-v0-10-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha3", tag = "patch-sha3-0.10.8-sp1-4.0.0" }
+tiny-keccak = { git = "https://github.com/sp1-patches/tiny-keccak", tag = "patch-2.0.2-sp1-4.0.0" }
