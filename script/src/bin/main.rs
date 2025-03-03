@@ -162,6 +162,7 @@ async fn main() -> Result<()> {
                 let start = std::time::Instant::now();
                 let proof = prover.prove(&pk, &stdin).compressed().run().unwrap();
                 println!("Successfully generated proof after {:?}", start.elapsed());
+                println!("Proof bytes: {}", hex::encode(proof.bytes()));
 
                 // Write proof to file
                 let mut file = std::fs::File::create("proof.bin").unwrap();
