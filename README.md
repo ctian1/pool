@@ -1,4 +1,4 @@
-# Privacy Pool in SP1
+# 🎱 Privacy Pool
 
 This is a proof-of-concept for a privacy pool implemented in [SP1](https://github.com/succinctlabs/sp1).
 
@@ -10,8 +10,8 @@ The array is proven using MPT account proof + storage proof and block hash is ve
 
 The withdrawal program can optionally prove inclusion of the commitment in a separate inclusion set
 to for example prove that the withdrawal is not associated with certain deposits in the pool. This
-concept is described in Vitalik's [Privacy Pools](https://www.sciencedirect.com/science/article/pii/S2096720923000519)
-paper.
+concept is described in the [Privacy Pools](https://www.sciencedirect.com/science/article/pii/S2096720923000519)
+paper by Vitalik and others.
 
 The CLI script can be used to generate a secret and commitment for deposits and generate a proof for withdrawals. No offchain indexing is required.
 
